@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: price_data
+Implementation-Version: 1.0
+Specification-Vendor: price_data
+Specification-Title: price_data
+Implementation-Vendor-Id: price_data
+Specification-Version: 1.0
+Main-Class: PriceDataStreaming
+Implementation-Vendor: price_data
+
