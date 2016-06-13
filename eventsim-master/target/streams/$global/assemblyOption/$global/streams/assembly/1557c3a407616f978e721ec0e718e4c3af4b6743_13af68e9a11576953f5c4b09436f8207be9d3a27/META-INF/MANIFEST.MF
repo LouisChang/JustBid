@@ -1,0 +1,98 @@
+Manifest-Version: 1.0
+Export-Package: org.apache.commons.math3;version="3.5",org.apache.comm
+ ons.math3.analysis;version="3.5",org.apache.commons.math3.analysis.di
+ fferentiation;version="3.5",org.apache.commons.math3.analysis.functio
+ n;version="3.5",org.apache.commons.math3.analysis.integration;version
+ ="3.5",org.apache.commons.math3.analysis.integration.gauss;version="3
+ .5",org.apache.commons.math3.analysis.interpolation;version="3.5",org
+ .apache.commons.math3.analysis.polynomials;version="3.5",org.apache.c
+ ommons.math3.analysis.solvers;version="3.5",org.apache.commons.math3.
+ complex;version="3.5",org.apache.commons.math3.dfp;version="3.5",org.
+ apache.commons.math3.distribution;version="3.5",org.apache.commons.ma
+ th3.distribution.fitting;version="3.5",org.apache.commons.math3.excep
+ tion;version="3.5",org.apache.commons.math3.exception.util;version="3
+ .5",org.apache.commons.math3.filter;version="3.5",org.apache.commons.
+ math3.fitting;version="3.5",org.apache.commons.math3.fitting.leastsqu
+ ares;version="3.5",org.apache.commons.math3.fraction;version="3.5",or
+ g.apache.commons.math3.genetics;version="3.5",org.apache.commons.math
+ 3.geometry;version="3.5",org.apache.commons.math3.geometry.enclosing;
+ version="3.5",org.apache.commons.math3.geometry.euclidean.oned;versio
+ n="3.5",org.apache.commons.math3.geometry.euclidean.threed;version="3
+ .5",org.apache.commons.math3.geometry.euclidean.twod;version="3.5",or
+ g.apache.commons.math3.geometry.euclidean.twod.hull;version="3.5",org
+ .apache.commons.math3.geometry.hull;version="3.5",org.apache.commons.
+ math3.geometry.partitioning;version="3.5",org.apache.commons.math3.ge
+ ometry.partitioning.utilities;version="3.5",org.apache.commons.math3.
+ geometry.spherical.oned;version="3.5",org.apache.commons.math3.geomet
+ ry.spherical.twod;version="3.5",org.apache.commons.math3.linear;versi
+ on="3.5",org.apache.commons.math3.ml.clustering;version="3.5",org.apa
+ che.commons.math3.ml.clustering.evaluation;version="3.5",org.apache.c
+ ommons.math3.ml.distance;version="3.5",org.apache.commons.math3.ml.ne
+ uralnet;version="3.5",org.apache.commons.math3.ml.neuralnet.oned;vers
+ ion="3.5",org.apache.commons.math3.ml.neuralnet.sofm;version="3.5",or
+ g.apache.commons.math3.ml.neuralnet.sofm.util;version="3.5",org.apach
+ e.commons.math3.ml.neuralnet.twod;version="3.5",org.apache.commons.ma
+ th3.ode;version="3.5",org.apache.commons.math3.ode.events;version="3.
+ 5",org.apache.commons.math3.ode.nonstiff;version="3.5",org.apache.com
+ mons.math3.ode.sampling;version="3.5",org.apache.commons.math3.optim;
+ version="3.5",org.apache.commons.math3.optim.linear;version="3.5",org
+ .apache.commons.math3.optim.nonlinear.scalar;version="3.5",org.apache
+ .commons.math3.optim.nonlinear.scalar.gradient;version="3.5",org.apac
+ he.commons.math3.optim.nonlinear.scalar.noderiv;version="3.5",org.apa
+ che.commons.math3.optim.nonlinear.vector;version="3.5",org.apache.com
+ mons.math3.optim.nonlinear.vector.jacobian;version="3.5",org.apache.c
+ ommons.math3.optim.univariate;version="3.5",org.apache.commons.math3.
+ optimization;version="3.5",org.apache.commons.math3.optimization.dire
+ ct;version="3.5",org.apache.commons.math3.optimization.fitting;versio
+ n="3.5",org.apache.commons.math3.optimization.general;version="3.5",o
+ rg.apache.commons.math3.optimization.linear;version="3.5",org.apache.
+ commons.math3.optimization.univariate;version="3.5",org.apache.common
+ s.math3.primes;version="3.5",org.apache.commons.math3.random;version=
+ "3.5",org.apache.commons.math3.special;version="3.5",org.apache.commo
+ ns.math3.stat;version="3.5",org.apache.commons.math3.stat.clustering;
+ version="3.5",org.apache.commons.math3.stat.correlation;version="3.5"
+ ,org.apache.commons.math3.stat.descriptive;version="3.5",org.apache.c
+ ommons.math3.stat.descriptive.moment;version="3.5",org.apache.commons
+ .math3.stat.descriptive.rank;version="3.5",org.apache.commons.math3.s
+ tat.descriptive.summary;version="3.5",org.apache.commons.math3.stat.i
+ nference;version="3.5",org.apache.commons.math3.stat.interval;version
+ ="3.5",org.apache.commons.math3.stat.ranking;version="3.5",org.apache
+ .commons.math3.stat.regression;version="3.5",org.apache.commons.math3
+ .transform;version="3.5",org.apache.commons.math3.util;version="3.5"
+Private-Package: assets.org.apache.commons.math3.exception.util,assets
+ .org.apache.commons.math3.random
+Implementation-Title: Apache Commons Math
+Built-By: luc
+Tool: Bnd-2.1.0.20130426-122213
+Implementation-Vendor: The Apache Software Foundation
+Implementation-Vendor-Id: org.apache
+Specification-Title: Apache Commons Math
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
+Bundle-SymbolicName: org.apache.commons.math3
+X-Compile-Target-JDK: 1.5
+Implementation-Version: 3.5
+Specification-Vendor: The Apache Software Foundation
+Bundle-Name: Apache Commons Math
+Created-By: Apache Maven Bundle Plugin
+X-Compile-Source-JDK: 1.5
+Bundle-Vendor: The Apache Software Foundation
+Build-Jdk: 1.6.0_31
+Bundle-Version: 3.5.0
+Bnd-LastModified: 1429014675932
+Bundle-ManifestVersion: 2
+Bundle-Description: The Apache Commons Math project is a library of li
+ ghtweight, self-contained mathematics and statistics components addre
+ ssing the most common practical problems not immediately available in
+  the Java programming language or commons-lang.
+Bundle-DocURL: http://commons.apache.org/proper/commons-math/
+Include-Resource: assets/org/apache/commons/math3/random/new-joe-kuo-6
+ .1000=src/main/resources/assets/org/apache/commons/math3/random/new-j
+ oe-kuo-6.1000,assets/org/apache/commons/math3/exception/util/Localize
+ dFormats_fr.properties=src/main/resources/assets/org/apache/commons/m
+ ath3/exception/util/LocalizedFormats_fr.properties,META-INF/NOTICE.tx
+ t=NOTICE.txt,META-INF/LICENSE.txt=LICENSE.txt
+Implementation-Build: b3c5dae8f253fcb4484e5cd3cc5662587803efc2; 2015-0
+ 4-14 14:30:57+0200
+Specification-Version: 3.5
+Archiver-Version: Plexus Archiver
+

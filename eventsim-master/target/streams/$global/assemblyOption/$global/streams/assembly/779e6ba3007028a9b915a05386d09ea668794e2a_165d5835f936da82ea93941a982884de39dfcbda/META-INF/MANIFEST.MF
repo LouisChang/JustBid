@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Implementation-Title: ThreeTen-extra
+Bundle-Description: Additional functionality that enhances JSR-310 dat
+ es and times in JDK 8
+Bundle-License: https://raw.githubusercontent.com/ThreeTen/threeten-ex
+ tra/master/LICENSE.txt
+Bundle-SymbolicName: org.threeten.extra
+Implementation-Version: 0.9
+Archiver-Version: Plexus Archiver
+Built-By: stephen
+Specification-Vendor: ThreeTen.org
+Bnd-LastModified: 1418146782401
+Bundle-ManifestVersion: 2
+Specification-Title: ThreeTen-extra
+Implementation-Vendor-Id: org.threeten
+Bundle-DocURL: http://www.threeten.org
+Bundle-Vendor: ThreeTen.org
+Tool: Bnd-2.1.0.20130426-122213
+Implementation-Vendor: ThreeTen.org
+Export-Package: org.threeten.extra;version="0.9.0",org.threeten.extra.
+ chrono;version="0.9.0",org.threeten.extra.scale;version="0.9.0"
+Bundle-Name: ThreeTen-extra
+Bundle-Version: 0.9.0
+Created-By: Apache Maven Bundle Plugin
+Build-Jdk: 1.8.0_20
+Specification-Version: 0.9
+
