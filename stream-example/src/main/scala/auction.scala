@@ -39,8 +39,9 @@ object BidDataStreaming {
 
                                 var json:Option[Any] = JSON.parseFull(x)
 
-                                val item:Long = map.get("itemInSession").get.asInstanceOf[String].toLong(item)
-                                })
+                                val item:Long = map.get("itemInSession").get.asInstanceOf[String].toLong
+
+                                (item)})
                                   // val tokens = x.split(";")
                                   // Tick(tokens(0), tokens(2).toDouble, tokens(3).toInt)}).toDF()
         // val ticks_per_source_DF = ticksDF.groupBy("source")

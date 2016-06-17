@@ -1,4 +1,4 @@
-name := "price_data"
+name := "auction"
 
 version := "1.0"
 
@@ -8,7 +8,8 @@ libraryDependencies ++= Seq(
 "org.apache.spark" %% "spark-core" % "1.3.0" % "provided",
 "org.apache.spark" %% "spark-sql" % "1.3.0" % "provided",
 "org.apache.spark" % "spark-streaming_2.10" % "1.3.0" % "provided",
-"org.apache.spark" % "spark-streaming-kafka_2.10" % "1.3.0"
+"org.apache.spark" % "spark-streaming-kafka_2.10" % "1.3.0",
+"com.datastax.spark" %% "spark-cassandra-connector" % "1.6.0"
 )
 
 mergeStrategy in assembly := {
