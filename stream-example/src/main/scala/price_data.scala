@@ -11,8 +11,9 @@ object PriceDataStreaming {
   def main(args: Array[String]) {
 
     val brokers = "ec2-52-87-1-210.compute-1.amazonaws.com:9092"
-    val topics = "price_data_part4"
-    val topicsSet = topics.split(",").toSet
+    //can have several topics
+    val topics = "price_data_part4" 
+    val topicsSet = topics.split(",").toSet 
 
     // Create context with 2 second batch interval
     val sparkConf = new SparkConf().setAppName("price_data")
