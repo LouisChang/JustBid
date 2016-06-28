@@ -14,13 +14,14 @@ import scala.util.parsing.json._
 object BidDataStreaming {
   def main(args: Array[String]) {
 
-    val brokers = "ec2-52-87-1-210.compute-1.amazonaws.com:9092"
+    val SPARK_MASTER = "ec2-52-204-162-4.compute-1.amazonaws.com"
+    val brokers = SPARK_MASTER + ":9092"
     //can have several topics
-    val topics = "test-2" 
+    val topics = "my-topic-1" 
     val topicsSet = topics.split(",").toSet 
 
     // Create context with 2 second batch interval
-    val sparkConf = new SparkConf().setAppName("auction").set("spark.cassandra.connection.host", "ec2-52-87-1-210.compute-1.amazonaws.com")
+    val sparkConf = new SparkConf().setAppName("auction").set("spark.cassandra.connection.host", SPARK_MASTER)
     val ssc = new StreamingContext(sparkConf, Seconds(2))
 
     // Create direct kafka stream with brokers and topics
@@ -39,17 +40,18 @@ object BidDataStreaming {
 
                                 var json:Option[Any] = JSON.parseFull(x)
 
-                                val item:Long = map.get("itemInSession").get.asInstanceOf[String].toLong
+                                val item:Long = map.get("itemInSession").asInstanceOf[Double].toLong
 
-                                (item)})
+                                (item,item)
+                                })
                                   // val tokens = x.split(";")
                                   // Tick(tokens(0), tokens(2).toDouble, tokens(3).toInt)}).toDF()
         // val ticks_per_source_DF = ticksDF.groupBy("source")
                                 // .agg("price" -> "avg", "volume" -> "sum")
                                 // .orderBy("source")
-        bidsDF.saveToCassandra("justbid","simpletable", SomeColumns("item"))
+        bidsDF.saveToCassandra("playground","user_item", SomeColumns("user_id","item_id"))
 
-        bidsDF.toDF().show()
+        //bidsDF.toDF().show()
         // ticks_per_source_DF.show()
     }
 
