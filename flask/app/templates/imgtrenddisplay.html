@@ -1,0 +1,309 @@
+{% extends "base.html" %}
+{% block imagetrenddis %}
+
+<div class="row row-offcanvas">
+        <div class="col-xs-12 col-sm-9"  style="position:fixed;left:0;top:0;bottom:0;overflow-y:scroll;padding-top: 70px">
+          <div class="jumbotron">
+            <div class="container">
+              <div class="starter-template">
+                    <div class="row"> 
+                    <div class="col-lg-8">
+                    <p align="center"> <img src={{output_0[0].image_link}} class="img-thumbnail fancybox" style="width:80%" ></p>
+                    </div>
+                    <div class="col-lg-4">
+                    <div class="btn-group" style="position:absolute;right:0">
+                        <button type="button" class="btn btn-default" style="background-color:#4a293b;border-color:#262626;color:white;width:80px">Buy</button>
+                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:#222222;border-color:#262626;color:white;width:80px">
+                          Collect <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                          <li><a href="" class="new_collection">New</a></li>
+                          <li role="separator" class="divider"></li>
+                          <li><a href="">Sunrise</a></li>
+                          <li><a href="">Sunset</a></li>
+                        </ul>
+                    </div>
+                    <div style="padding-top: 130px;">
+                      <table class="table">
+                      <thead>
+                        <tr>
+                          <!-- <th>Image</th> -->
+                          <!-- <th>Title</th> --> 
+                          <!-- <th>Collecting Institution</th> -->
+                          <!-- <th>Collected Count</th>   -->
+                            <!-- <th>{{output_0[0].title}}</th>  -->
+                          <th><i><b><font size="3">{{output_0[0].title}}</font></b></i></th>                
+                        </tr>
+                      </thead>
+                      <tbody>
+<!--                         <tr>
+                          <td><i><b><font size="3">{{output_0[0].title}}</font></b></i></td>
+                        </tr> -->
+                        <tr>
+                          <td><font size="2"><b>Collecting Institution:</b> {{output_0[0].collecting_institution}}</font></td>
+                        </tr>
+                        <tr>
+                          <td><font size="2"><b>Collected Count:</b> {{output_0[0].pined_count}}</font></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                      <!-- <p align="right"><button type="button" class="btn btn-inverse">Collect</button></p> -->
+                    </div>
+                    </div>
+
+              </div>
+            </div>
+            <hr>
+          <!-- </div> -->
+          <div class="container">
+          <div class="row">
+             <div id="highchart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+          </div>
+          </div>
+          </div>
+          </div> -->
+      </div><!--/.col-xs-12.col-sm-9-->
+
+        {% if output_2 %}
+        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" style="position:fixed;right:0;top:0;bottom:0;overflow-y:scroll;padding-top:70px">
+          <div class="list-group">
+            <p align="center"><b>Similar Artworks</b></p>
+            <!-- <a href="#" class="list-group-item active">Link</a> -->
+            {% for val in output_2 %}
+            <a href="http://www.artmosphere.nyc/trend/{{val.art_id}}" class="list-group-item" align="center"><img src={{val.image_link}} class="img-thumbnail" ></a>
+            {% endfor %}
+          </div>
+        </div><!--/.sidebar-offcanvas-->
+        {% else %}
+        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" style="position:fixed;right:0;top:0;bottom:0;overflow-y:scroll;padding-top:70px">
+          <div class="list-group">
+            <p align="center"><b>Newly Uploaded</b></p>
+            <!-- <a href="#" class="list-group-item active">Link</a> -->
+            {% for val in output_3 %}
+            <a href="http://www.artmosphere.nyc/trend/{{val.art_id}}" class="list-group-item" align="center"><img src={{val.image_link}} class="img-thumbnail" ></a>
+            {% endfor %}
+          </div>
+        </div><!--/.sidebar-offcanvas-->
+        {% endif %}
+</div><!--/row-->
+
+
+
+<script>
+  function query_new_trend() {
+    jQuery.ajax({ url: '/cs/{{output_0[0].id}}'}).done(function(data) {
+      console.log(data);
+       if (data.output.length > 0) {
+            var x =  (new Date()).getTime(), 
+                y = parseInt(data.output[0].pin_count);
+            if (y==null) {
+              y = 0
+            }
+            var chart = jQuery('#highchart').highcharts();
+            var series = chart.series[0];
+            series.addPoint([x, y], true, true);
+        // });
+      }
+      setTimeout(query_new_trend,3000);
+    });
+  }
+
+// jQuery(".new_collection").click(function() {
+//   document.cookie+="{{output_0[0]}};";
+// });
+
+jQuery(function () {
+    // Get the CSV and create the chart
+    jQuery(document).ready(function () {
+        Highcharts.setOptions({
+            global: {
+                useUTC: false
+            }
+        });
+
+        jQuery('#highchart').highcharts({
+            chart: {
+                type: 'spline',
+                marginRight: 10,
+                events: {
+                    load: function () {
+                    }
+                }
+            },
+            title: {
+                text: 'Real-time Collecting Action Count'
+            },
+            xAxis: {
+              type: 'datetime'
+            },
+            yAxis: [{ // left y axis
+                title: {
+                    text: null
+                },
+                labels: {
+                    align: 'left',
+                    x: 3,
+                    y: 16,
+                    format: '{value:.,0f}'
+                },
+                showFirstLabel: false
+            }],
+            legend: {
+                align: 'left',
+                verticalAlign: 'top',
+                y: 20,
+                floating: true,
+                borderWidth: 0
+            },
+            tooltip: {
+                shared: true,
+                crosshairs: true
+            },
+            plotOptions: {
+                series: {
+                    cursor: 'pointer',
+                    point: {
+                        events: {
+                            click: function (e) {
+                                hs.htmlExpand(null, {
+                                    pageOrigin: {
+                                        x: e.pageX || e.clientX,
+                                        y: e.pageY || e.clientY
+                                    },
+                                    headingText: this.series.name,
+                                    maincontentText: Highcharts.dateFormat('%A, %b %e, %Y', this.x) + ':<br/> ' +
+                                        this.y + ' visits',
+                                    width: 200
+                                });
+                            }
+                        }
+                    },
+                    marker: {
+                        lineWidth: 1
+                    }
+                }
+            },
+            series: [{
+                name: 'Collected Count',
+                data: (function () {
+                    var data = [], time = (new Date()).getTime(), i;
+                    for (i = -19; i <= 0; i += 1) {
+                        data.push({ x: time + i * 3000, y: Math.floor((Math.random() * 5) + 1) });
+                    }
+                    return data;
+                }())
+            }]
+        });
+
+  });
+});
+
+
+/**
+ * Sand-Signika theme for Highcharts JS
+ * @author Torstein Honsi
+ */
+
+// Load the fonts
+Highcharts.createElement('link', {
+   href: '//fonts.googleapis.com/css?family=Signika:400,700',
+   rel: 'stylesheet',
+   type: 'text/css'
+}, null, document.getElementsByTagName('head')[0]);
+
+// Add the background image to the container
+Highcharts.wrap(Highcharts.Chart.prototype, 'getContainer', function (proceed) {
+   proceed.call(this);
+   this.container.style.background = 'url(http://www.highcharts.com/samples/graphics/sand.png)';
+});
+
+Highcharts.theme = {
+   colors: ["#f45b5b", "#8085e9", "#8d4654", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee",
+      "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"],
+   chart: {
+      backgroundColor: null,
+      style: {
+         fontFamily: "Signika, serif"
+      }
+   },
+   title: {
+      style: {
+         color: 'black',
+         fontSize: '16px',
+         fontWeight: 'bold'
+      }
+   },
+   subtitle: {
+      style: {
+         color: 'black'
+      }
+   },
+   tooltip: {
+      borderWidth: 0
+   },
+   legend: {
+      itemStyle: {
+         fontWeight: 'bold',
+         fontSize: '13px'
+      }
+   },
+   xAxis: {
+      labels: {
+         style: {
+            color: '#6e6e70'
+         }
+      }
+   },
+   yAxis: {
+      labels: {
+         style: {
+            color: '#6e6e70'
+         }
+      }
+   },
+   plotOptions: {
+      series: {
+         shadow: true
+      },
+      candlestick: {
+         lineColor: '#404048'
+      },
+      map: {
+         shadow: false
+      }
+   },
+
+   // Highstock specific
+   navigator: {
+      xAxis: {
+         gridLineColor: '#D0D0D8'
+      }
+   },
+   rangeSelector: {
+      buttonTheme: {
+         fill: 'white',
+         stroke: '#C0C0C8',
+         'stroke-width': 1,
+         states: {
+            select: {
+               fill: '#D0D0D8'
+            }
+         }
+      }
+   },
+   scrollbar: {
+      trackBorderColor: '#C0C0C8'
+   },
+   // General
+   background2: '#E0E0E8'   
+};
+
+// Apply the theme
+Highcharts.setOptions(Highcharts.theme);
+
+  jQuery().ready(function() {
+    query_new_trend();
+  });
+</script>
+{% endblock %}
