@@ -21,7 +21,7 @@ object BidDataStreaming {
     val topicsSet = topics.split(",").toSet 
 
     // Create context with 2 second batch interval
-    val sparkConf = new SparkConf().setAppName("auction").set("spark.cassandra.connection.host", SPARK_MASTER)
+    val sparkConf = new SparkConf().setAppName("bid").set("spark.cassandra.connection.host", SPARK_MASTER)
     val ssc = new StreamingContext(sparkConf, Seconds(2))
 
     // Create direct kafka stream with brokers and topics
@@ -36,23 +36,24 @@ object BidDataStreaming {
 
         val lines = rdd.map(_._2)
         // get the data you want
-        val bidsDF = lines.map( x => {
+        val bidsStreaming = lines.map( rawBid => {
 
-                                var json:Option[Any] = JSON.parseFull(x)
-
-                                val item:Long = map.get("itemInSession").asInstanceOf[Double].toLong
-
-                                (item,item)
+                                var json:Option[Any] = JSON.parseFull(rawBid)
+                                val bid:Map[String,Any] = json.get.asInstanceOf[Map[String, Any]]
+                                val item:Long = bid.get("itemInSession").get.asInstanceOf[Double].toLong
+                                    
+                                val user:Long = bid.get("sessionId").get.asInstanceOf[Double].toLong
+                                var bidprice:Long = 0
+                                if (bid.contains("length")) {
+                                    bidprice = bid.get("length").get.asInstanceOf[Double].toLong
+                                    
+                                }
+                                
+                                (item,user,bidprice)
                                 })
-                                  // val tokens = x.split(";")
-                                  // Tick(tokens(0), tokens(2).toDouble, tokens(3).toInt)}).toDF()
-        // val ticks_per_source_DF = ticksDF.groupBy("source")
-                                // .agg("price" -> "avg", "volume" -> "sum")
-                                // .orderBy("source")
-        bidsDF.saveToCassandra("playground","user_item", SomeColumns("user_id","item_id"))
+            
+        bidsStreaming.saveToCassandra("justbid","bidding2", SomeColumns("item_id","user_id","bid_price"))
 
-        //bidsDF.toDF().show()
-        // ticks_per_source_DF.show()
     }
 
 
