@@ -16,7 +16,7 @@ object matrix_data{
    val file = sc.textFile(file_name)
 
    // map each record into a tuple consisting of (user_id,item_id)
-   val ticks = file.map(line => {
+   val bids = file.map(line => {
                         val record = line.split(" ")
                        (record(0).toLong, record(1).toLong)
                                 })
@@ -24,7 +24,7 @@ object matrix_data{
    
        
    // compute user_id as key, item_id list as value
-   var item_list = ticks.map(record => (record._1,record._2))
+   var item_list = bids.map(record => (record._1,record._2))
                                    .groupByKey()
                                    .distinct()
 
