@@ -6,16 +6,18 @@ CREATE TABLE bidding3(
     user_id bigint,
     bid_price bigint,
     current_time text,
-    PRIMARY KEY (item_id,current_time)
-) WITH CLUSTERING ORDER BY (current_time,DESC);
+    time timestamp,
+    PRIMARY KEY (item_id,time)
+) WITH CLUSTERING ORDER BY (time DESC);
 
 CREATE TABLE bidding_user(
     item_id bigint,
     user_id bigint,
     bid_price bigint,
     current_time text,
-    PRIMARY KEY (user_id,current_time)
-) WITH CLUSTERING ORDER BY (current_time,DESC);
+    time timestamp,
+    PRIMARY KEY (user_id,time)
+) WITH CLUSTERING ORDER BY (time DESC);
 
 CREATE TABLE recommendation(
     user_id bigint,
