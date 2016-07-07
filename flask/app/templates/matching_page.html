@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block home %}
+<!DOCTYPE html>
+<br>
+  
+
+
+
+
+</br>
+<br> </br>
+<div class="container">
+     <div class="starter-template">
+       <div class="row" style="height:100vh;">
+               <div class="col-md-10 col-md-offset-1">
+                   <table class="table">
+                     <thead>
+                       <tr>
+                         <th>User</th>
+                         <th>Matching user</th>
+                       </tr>
+                     </thead>
+                     <tbody>
+                       {% for val in recoms %}
+                       <tr>
+                         <td>{{val.user_ID}}</td>
+                         <td>{{val.Matching_user_ID}}</td>
+                       </tr>
+                       {% endfor %}
+                     </tbody>
+                   </table>
+               </div>
+
+               <!--<div class="col-md-10 col-md-offset-1">
+                   <table class="table">
+                     <thead>
+                       <tr>
+                          <th>Bidder</th>
+                          <th>Bid Time</th>
+                          <th>Item</th>
+                          <th>Price</th>
+                       </tr>
+                     </thead>
+                     <tbody>
+
+                       {% for val in bids %}
+                       <tr>
+                         <td>{{val.Bidder}}</td>
+                         <td>{{val.Current_Time}}</td>
+                         <td>{{val.Item}}</td>
+                         <td>{{val.Price}}</td>
+                       </tr>
+                       {% endfor %}
+                     </tbody>
+                   </table>
+               </div>-->
+
+               <div class="col-md-10 col-md-offset-1">
+                   <table class="table">
+                     <thead>
+                       <tr>
+                          <th>Bidder</th>
+                          <th>Bid Time</th>
+                          <th>Item</th>
+                          <th>Price</th>
+                       </tr>
+                     </thead>
+                     <tbody>
+
+                       {% for val in matchs %}
+                       <tr>
+                         <td>{{val.Bidder}}</td>
+                         <td>{{val.Current_Time}}</td>
+                         <td>{{val.Item}}</td>
+                         <td>{{val.Price}}</td>
+                       </tr>
+                       {% endfor %}
+                     </tbody>
+                   </table>
+               </div>
+       </div>
+     </div>
+   </div>
+  <script> setTimeout(function(){window.location.reload(1);}, 3000);</script>
+</html>
+{% endblock %}
