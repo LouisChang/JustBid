@@ -49,11 +49,11 @@ object BidDataStreaming {
                                     
                                 }
                                 val today = Calendar.getInstance.getTime.toString
-                                    
-                                (item,user,bidprice,today)
+                                val time = Calendar.getInstance.getTime 
+                                (item,user,bidprice,today,time)
                                 })
-        bidsStreaming.saveToCassandra("justbid","bidding3", SomeColumns("item_id","user_id","bid_price","current_time"))
-        bidsStreaming.saveToCassandra("justbid","bidding_user", SomeColumns("item_id","user_id","bid_price","current_time"))
+        bidsStreaming.saveToCassandra("justbid","bidding3", SomeColumns("item_id","user_id","bid_price","current_time","time"))
+        bidsStreaming.saveToCassandra("justbid","bidding_user", SomeColumns("item_id","user_id","bid_price","current_time","time"))
 
     }
 
