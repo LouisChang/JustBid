@@ -8,13 +8,8 @@ import json
 from time import gmtime, strftime
 import pytz
 
-ES_HOST = {"host" : "localhost", "port" : 9200}
-INDEX_NAME = 'artsy'
-TYPE_NAME = 'artworks'
 ID_FIELD = 'id'
 
-#cs_cluster = Cluster(['172.31.11.233','172.31.11.231','172.31.11.232'])
-#cs_session = cs_cluster.connect('art_pin_log')
 cluster = Cluster(['ec2-52-204-162-4.compute-1.amazonaws.com'])	
 session = cluster.connect('justbid')
 # Change tabs
@@ -34,6 +29,16 @@ def get_slide():
    title = "JustBid"
    return render_template("slide.html", title = title)
 
+@app.route("/bidding")
+def bidding():
+	title = "JustBid"
+	return render_template("bidding.html",title= title)
+
+@app.route("/matching")
+def matching():
+	title = "JustBid"
+	return render_template("matching.html",title= title)
+
 #@app.route("/map")  
 #def get_map():
 #   title = "JustBid"
@@ -41,56 +46,66 @@ def get_slide():
 
 
 # show real-time bids
-@app.route('/api/<item_id>/<n>')
+
+@app.route('/home_page/<item_id>/<n>')
 def home_page(item_id, n):
     bid_fmt = "%a %b %d %H:%M:%S %Z %Y"
     my_fmt = "%a %b %d %H:%M:%S"
     utc = pytz.timezone('UTC')
     local = pytz.timezone('America/New_York')
-    query_for_bids = "SELECT user_id,bid_price from bidding2 WHERE item_id=%d ORDER BY user_id DESC LIMIT 2"
-    query_for_name = "SELECT user_id FROM bidding2 WHERE item_id=%d ORDER BY user_id DESC LIMIT 2"
-    item_response = session.execute(query_for_name % int(item_id))
-    username = "Sidi Chang"
-    numOfBid = int(n)
-    bid_response = session.execute(query_for_bids % (int(item_id)))
+    #if item_id == 0:
+    
+    query_for_bids = "SELECT item_id,current_time,user_id,bid_price from bidding3 WHERE item_id =%d LIMIT 10"
+    bid_response = session.execute(query_for_bids % int(item_id))
     bids_list = []
+    json_response = []
     for val in bid_response:
         bids_list.append(val)
-        jsonresponse = [{ "Winner": bid.user_id, "Price": bid.bid_price} for bid in bids_list]
-    user = {'item_id' : item_id, 'numOfBid' : numOfBid}
-    return jsonify(bids=jsonresponse)
-'''
-    if bid_response:
-        return render_template("home_page.html", tweets=json_response, user=user, mode='home')
-    else:
-        return render_template("home_page.html", user=user, mode='home')
-'''
-'''
-  if uname_response:
-    username = uname_response[0].uname
-  numOfBid = int(n)
-  bid_response = session.execute(query_for_bids % (int(item_id), numOfBid))
-  tweet_list = []
-  for val in tid_response:
-    tweets_response = session.execute(query_for_tweets % int(val.tid))
-    for x in tweets_response:
-      tweet_list.append(x.tweet)
-  json_response = []
-  for x in tweet_list:
-    tweet_json = json.loads(x, object_pairs_hook=OrderedDict)
-    localized_time = utc.localize(datetime.strptime(tweet_json.get('created_at').replace('+0000', 'UTC'), twitter_fmt), is_dst=None).astimezone(local).strftime(my_fmt)
-    tweet_simple = {'timestamp' : localized_time, 'text' : tweet_json.get('text'), 'authorName' : tweet_json.get('user').get('name'), 'authorScreenName' : tweet_json.get('user').get('screen_name')}
-    hashtags = tweet_json.get('entities').get('hashtags')
-    if hashtags:
-      hashtag_str = []
-      for hashtag in hashtags:
-        hashtag_str.append(hashtag.get('text'))
-      tweet_simple['hashtags'] = ", ".join(hashtag_str)
-    json_response.append(tweet_simple)
-  user = {'uid' : uid, 'uname' : username, 'numOfTweet' : numOfTweet}
-  if json_response:
-    return render_template("home_page.html", tweets=json_response, user=user, mode='home')
-  else:
-    return render_template("home_page.html", user=user, mode='home')
-'''
+        json_response = [{ "Bidder": bid.user_id, "Current_Time":bid.current_time,"Price": bid.bid_price, "Item":bid.item_id} for bid in bids_list]
+
+    return render_template("home_page.html", bids=json_response)
+    
+    
+
+# show recommendation
+@app.route('/matching_page/<user_id>/<n>')
+def matching_page(user_id, n):
+    
+    query_for_recoms = "SELECT recom_id,MAX(recom_id) from recommendation WHERE user_id=%d"
+    user_response = session.execute(query_for_recoms % int(user_id))
+    username = "Sidi Chang"
+    recom_list = []
+    jsonresponse=[]
+    numOfRecom = int(n)
+    for val in user_response:
+        recom_list.append(val)
+        jsonresponse = [{"user_ID": user_id, "Matching_user_ID": u.recom_id} for u in recom_list]
+    print jsonresponse
+    
+    recommender_id = jsonresponse[0]["Matching_user_ID"]
+    query_for_bids = "SELECT item_id,current_time,user_id,bid_price from bidding_user WHERE user_id =%d LIMIT 30"
+    bid_response = session.execute(query_for_bids % int(user_id))
+    bids_list = []
+    json_response = []
+    for val in bid_response:
+        bids_list.append(val)
+        json_response = [{ "Bidder": bid.user_id, "Current_Time":bid.current_time,"Price": bid.bid_price, "Item":bid.item_id} for bid in bids_list]
+    
+    
+    
+    query_for_us = "SELECT item_id,current_time,user_id,bid_price from bidding_user WHERE user_id =%d LIMIT 30"
+    u_response = session.execute(query_for_bids % int(recommender_id))
+    us_list = []
+    match_response = []
+    for val in u_response:
+        us_list.append(val)
+        match_response = [{ "Bidder": bid.user_id, "Current_Time":bid.current_time,"Price": bid.bid_price, "Item":bid.item_id} for bid in us_list]
+
+    return render_template("matching_page.html", recoms=jsonresponse, bids=json_response, matchs = match_response)
+    
+
+
+if __name__ == '__main__':
+	"Are we in the __main__ scope? Start test server."
+	app.run(host='0.0.0.0',port=5000,debug=True)
 
