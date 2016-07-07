@@ -57,10 +57,43 @@ def home_page(item_id, n):
     
     query_for_bids = "SELECT item_id,current_time,user_id,bid_price from bidding3 WHERE item_id =%d LIMIT 10"
     bid_response = session.execute(query_for_bids % int(item_id))
+<<<<<<< HEAD
+=======
     bids_list = []
+    json_response = []
     for val in bid_response:
         bids_list.append(val)
         json_response = [{ "Bidder": bid.user_id, "Current_Time":bid.current_time,"Price": bid.bid_price, "Item":bid.item_id} for bid in bids_list]
+
+    return render_template("home_page.html", bids=json_response)
+    
+    
+
+# show recommendation
+@app.route('/matching_page/<user_id>/<n>')
+def matching_page(user_id, n):
+    
+    query_for_recoms = "SELECT recom_id,MAX(recom_id) from recommendation WHERE user_id=%d"
+    user_response = session.execute(query_for_recoms % int(user_id))
+    username = "Sidi Chang"
+    recom_list = []
+    jsonresponse=[]
+    numOfRecom = int(n)
+    for val in user_response:
+        recom_list.append(val)
+        jsonresponse = [{"user_ID": user_id, "Matching_user_ID": u.recom_id} for u in recom_list]
+    print jsonresponse
+    
+    recommender_id = jsonresponse[0]["Matching_user_ID"]
+    query_for_bids = "SELECT item_id,current_time,user_id,bid_price from bidding_user WHERE user_id =%d LIMIT 30"
+    bid_response = session.execute(query_for_bids % int(user_id))
+>>>>>>> origin/master
+    bids_list = []
+    json_response = []
+    for val in bid_response:
+        bids_list.append(val)
+        json_response = [{ "Bidder": bid.user_id, "Current_Time":bid.current_time,"Price": bid.bid_price, "Item":bid.item_id} for bid in bids_list]
+<<<<<<< HEAD
 
     return render_template("home_page.html", bids=json_response)
 
@@ -106,6 +139,8 @@ def matching_page(user_id, n):
     for val in bid_response:
         bids_list.append(val)
         json_response = [{ "Bidder": bid.user_id, "Current_Time":bid.current_time,"Price": bid.bid_price, "Item":bid.item_id} for bid in bids_list]
+=======
+>>>>>>> origin/master
     
     
     
@@ -117,6 +152,7 @@ def matching_page(user_id, n):
         us_list.append(val)
         match_response = [{ "Bidder": bid.user_id, "Current_Time":bid.current_time,"Price": bid.bid_price, "Item":bid.item_id} for bid in us_list]
 
+<<<<<<< HEAD
     return render_template("matching_page.html", recoms=jsonresponse, bids=json_response, matchs = match_response)#
     
     
@@ -126,8 +162,13 @@ def matching_page(user_id, n):
 
 
 
+=======
+    return render_template("matching_page.html", recoms=jsonresponse, bids=json_response, matchs = match_response)
+    
+>>>>>>> origin/master
 
 
 if __name__ == '__main__':
 	"Are we in the __main__ scope? Start test server."
 	app.run(host='0.0.0.0',port=5000,debug=True)
+

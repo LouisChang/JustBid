@@ -1,16 +1,26 @@
 CREATE KEYSPACE justbid WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' :3};
 USE justbid;
 
-CREATE TABLE bidding2(
+CREATE TABLE bidding3(
     item_id bigint,
     user_id bigint,
     bid_price bigint,
-    PRIMARY KEY (item_id,user_id)
+    current_time text,
+    PRIMARY KEY (item_id,current_time)
+) WITH CLUSTERING ORDER BY (current_time,DESC);
+
+CREATE TABLE bidding_user(
+    item_id bigint,
+    user_id bigint,
+    bid_price bigint,
+    current_time text,
+    PRIMARY KEY (user_id,current_time)
+) WITH CLUSTERING ORDER BY (current_time,DESC);
+
+CREATE TABLE recommendation(
+    user_id bigint,
+    recom_id bigint
+    PRIMARY KEY (user_id)
 );
 
 
-CREATE TABLE simpletable (
-  item bigint,
-  name bigint,
-  PRIMARY KEY (item)
-);
