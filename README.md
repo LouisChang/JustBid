@@ -19,9 +19,21 @@ The pipeline is designed for both batch and real-time processing. The data is ge
 
   Flask is used for data display. The website is live on [sidi.online](http://sidi.online) and [video demo](https://vimeo.com/173849615) is ready on Vimeo.
   
-  ## Batch processing stage
+## Batch processing stage
   * Jaccard Similarity 
   
     Jaccard Similarity is widely used for finding similar items or finding similarity between several sets. It is quite simple to understand and quite simple to apply.
 
     <img src="pics/jaccard.png" height="300" align="middle" />
+    
+    We can see two sets S and T, the SIM(S,T) = 3/5+6-3 = 3/8.
+  
+  * MinHash
+  
+    Though Jaccard Similarity is simple, easy to apply. But when we need to calculate between large amount of sets, each set needs to be calculated with the other sets once to get the most similar set to itself which is quite expensive in time aspect. So MinHash algorithm is implemented in my system to do the batch processing in Spark. This algorithm is introduced in Stanford [CS246](http://web.stanford.edu/class/cs246/) class and the [Mining of Massive Datasets book](http://infolab.stanford.edu/~ullman/mmds/book.pdf).
+
+    Here is an example:
+    
+    <img src="pics/jaccard.png" height="300" align="middle" />
+    
+    
