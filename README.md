@@ -40,11 +40,12 @@ The pipeline is designed for both batch and real-time processing. The data is ge
     
     <img src="pics/minhash2.png" height="300" align="middle" />
     <img src="pics/minhash3.png" height="300" align="middle" />
+    <img src="pics/minhash4.png" height="300" align="middle" />
     
     Then look at User 1, he bids item 1 and 4 in Row 0 and 3, the corresponding number in Hash function 1 is 1 and 4, 1 and 0 in Hash function 2. Then we need to get the minimum one and update in the new Signature matrix which is shown below.
     
-    <img src="pics/minhash4.png" height="300" align="middle" />
+    <img src="pics/minhash5.png" height="300" align="middle" />
     
-    
+    From the Signature Matrix, we can see the highest similarity for user 1 is user 4 with SIMILARITY = 1 which is obvious in my matirx, the real SIM(1,4) = 2/3. When we increase the number of Hash functions, it will become more accurate. And this algorithm will highly decrease the dimension of the matrix because the number of items is much larger than number of hash functions which is between 1 and 400. Also, Hash Function generator and calculation can be done in distributed system such as Hadoop or Spark.
     
     
