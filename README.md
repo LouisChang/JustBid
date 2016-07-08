@@ -49,6 +49,7 @@ The pipeline is designed for both batch and real-time processing. The data is ge
     From the Signature Matrix, we can see the highest similarity for user 1 is user 4 with SIMILARITY = 1 which is obvious in my matirx, the real SIM(1,4) = 2/3. When we increase the number of Hash functions, it will become more accurate. And this algorithm will highly decrease the dimension of the matrix because the number of items is much larger than number of hash functions which is between 1 and 400. Also, Hash Function generator and calculation can be done in distributed system such as Hadoop or Spark.
     
   * HDFS
+  
     I got the real-time streaming simulated data from Kafka and use [Gobblin](https://github.com/linkedin/gobblin) to put that into HDFS, then I run the Spark Job and get the data from my HDFS.
 
 ## Real-time stage data performance evaluation
