@@ -34,6 +34,17 @@ The pipeline is designed for both batch and real-time processing. The data is ge
 
     Here is an example:
     
-    <img src="pics/jaccard.png" height="300" align="middle" />
+    <img src="pics/minhash1.png" height="300" align="middle" />
+    
+    Assume we have five items and four users and name them starting from 1 respectively. And I give two Hash Function examples, the first Hash Function is x+1 mod 5, the second one is 3x+1 mod 5 which can give me a permutation of numbers between 0 and 4.
+    
+    <img src="pics/minhash2.png" height="300" align="middle" />
+    <img src="pics/minhash3.png" height="300" align="middle" />
+    
+    Then look at User 1, he bids item 1 and 4 in Row 0 and 3, the corresponding number in Hash function 1 is 1 and 4, 1 and 0 in Hash function 2. Then we need to get the minimum one and update in the new Signature matrix which is shown below.
+    
+    <img src="pics/minhash4.png" height="300" align="middle" />
+    
+    
     
     
