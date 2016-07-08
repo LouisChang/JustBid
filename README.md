@@ -1,6 +1,7 @@
 # JustBid bidding system
 * Insight Data Engineering Fellow Project
 
+<<<<<<< HEAD
 ## Motivation: Explore approximate neighbor searching
 
 This project is motivated by speeding up neighbor searching for recommendation/classification algorithms. Even for the most straightforward algorithm, KNN, the naive brute-force implementation takes O(n^2)*O(similarity calculation). In the graduate school, I learned to implement LSH + Random Projection approach to speed up KNN with cosine similarity. For this project, I'm exploring another variant of LSH algorithm: MinHash + LSH for speeding up neighbor search wrt Jaccard Similarity ("Mining massive datasets", Rajaraman and Leskovec). Jaccard Similarity is really useful for finding similar documents (e.g. plagirism) and sequences. I'm interested in implementing and benchmarking this algorithm in both batch and real-time mode on the distirbuted system (Spark, Spark Streaming and Kafka).
@@ -56,3 +57,9 @@ The pipeline is designed for both batch and real-time benchmark of MinHash+LSH a
 
 
 
+=======
+
+## Pipeline
+
+The pipeline is designed for both batch and real-time processing. The data is generated from EventSim Generator, which is used for simulating people's behavior of listening to music. I changed the format of the data and make it useful for my system.
+>>>>>>> origin/master

@@ -6,7 +6,7 @@ import org.apache.spark.SparkConf
 import org.apache.spark.rdd.RDD
 import org.apache.spark.SparkContext
 import org.apache.spark.sql._
-
+import java.util.Calendar
 import com.datastax.spark.connector._
 
 import scala.util.parsing.json._
@@ -48,11 +48,12 @@ object BidDataStreaming {
                                     bidprice = bid.get("length").get.asInstanceOf[Double].toLong
                                     
                                 }
-                                
-                                (item,user,bidprice)
+                                val today = Calendar.getInstance.getTime.toString
+                                val time = Calendar.getInstance.getTime 
+                                (item,user,bidprice,today,time)
                                 })
-            
-        bidsStreaming.saveToCassandra("justbid","bidding2", SomeColumns("item_id","user_id","bid_price"))
+        bidsStreaming.saveToCassandra("justbid","bidding3", SomeColumns("item_id","user_id","bid_price","current_time","time"))
+        bidsStreaming.saveToCassandra("justbid","bidding_user", SomeColumns("item_id","user_id","bid_price","current_time","time"))
 
     }
 
@@ -60,20 +61,5 @@ object BidDataStreaming {
     // Start the computation
     ssc.start()
     ssc.awaitTermination()
-  }
-}
-
-case class Tick(source: String, price: Double, volume: Int)
-
-/** Lazily instantiated singleton instance of SQLContext */
-object SQLContextSingleton {
-
-  @transient  private var instance: SQLContext = _
-
-  def getInstance(sparkContext: SparkContext): SQLContext = {
-    if (instance == null) {
-      instance = new SQLContext(sparkContext)
-    }
-    instance
   }
 }
