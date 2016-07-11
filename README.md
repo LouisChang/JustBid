@@ -53,7 +53,12 @@ The pipeline is designed for both batch and real-time processing. The data is ge
     I got the real-time streaming simulated data from Kafka and use [Gobblin](https://github.com/linkedin/gobblin) to put that into HDFS, then I run the Spark Job and get the data from my HDFS.
 
 ## Real-time stage data performance evaluation
-
+  * Data Info
+    The simulator will simulate an initial 10k bidder with a increase rate of 30% per year, almost 15 million bidding is simulated if we choose the program to run a 10-year period data.
+  * AWS Info
+    Four clusters are used, the master is m4.xlarge, the three worker is m4.large. Those clusters are almost enough for running all my program so I do not increase all the worker to m4.large.
+  * UI update Info
+    Real-time stage is running through Spark Streaming, all the data will be stored in Cassandra and flask UI will refresh(access) Cassandra per second to update.
 ## Batch stage performance evaluation
     
     
