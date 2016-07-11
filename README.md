@@ -66,7 +66,9 @@ The pipeline is designed for both batch and real-time processing. The data is ge
   * A small sample test based on MinHash has been done on Error Rate and running time has been done.
     
     <img src="pics/accuracy.jpg" height="300" align="middle" />
-    
+    <img src="pics/running.jpg" height="300" align="middle" />
+
+    From the two figures above, we can see the more hash functions we use, the less error rate we will have but the running time will be higher. To achive a tradeoff, we need to make hash functions close to 100-150.
   
 
     
