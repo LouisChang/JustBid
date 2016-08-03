@@ -17,7 +17,7 @@ The pipeline is designed for both batch and real-time processing. The data is ge
   Cassandra is used as my database. I need to handle millions of data and need to SELECT bid with the same item_id when I choose item_id as the PRIMARY KEY. Also, I do not need to use JOIN function of different TABLES. Last but not least, timestamp is needed to store and used to sort, so Cassandra is my top choice.
 * UI
 
-  Flask is used for data display. The website is live on [sidi.online](http://sidi.online) and [video demo](https://vimeo.com/173849615) is ready on Vimeo.
+  Flask is used for data display. The website is no longer live on because the web server of Insight is down and [video demo](https://vimeo.com/173849615) is ready on Vimeo.
   
 ## Batch processing stage
   * Jaccard Similarity 
