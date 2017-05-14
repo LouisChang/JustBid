@@ -1,6 +1,2 @@
 language: scala
 jdk: oraclejdk8
-
-script:
-  - Spark-streaming/src/main/scala/auction.scala
-  - Recommendation/src/main/scala/matrix.scala
