@@ -1,0 +1,6 @@
+language: scala
+jdk: oraclejdk8
+
+script:
+  - Spark-streaming/src/main/scala
+  - Recommendation/src/main/scala
