@@ -1,4 +1,4 @@
-# JustBid bidding system
+# JustBid bidding system [![Build Status](https://travis-ci.org/LouisChang/JustBid.svg?branch=master)](https://travis-ci.org/LouisChang/JustBid)
 * Insight Data Engineering Fellow Project
 
 
